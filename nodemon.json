@@ -1,0 +1,13 @@
+{
+    "nodemonConfig": {
+        "ignore": [
+            ".git",
+            "node_modules",
+            ".gitignore"
+        ],
+        "env": {
+            "NODE_ENV": "development"
+        },
+        "ext": "js,json,mustache,html"
+    }
+}

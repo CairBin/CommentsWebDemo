@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" style="width:100%;height:100%;">
+
+<head>
+    {{>header}}
+</head>
+
+<body style="height:100%;width:100%;">
+    <header style="height:50px;">
+
+    </header>
+    <div class="container" style="height:auto;">
+        <h2>{{title}}</h2>
+        <hr />
+        <form method="post" role="form" style="margin-top:50px;">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" class="form-control" id="title" name="title" placeholder="Please input title"
+                    required />
+            </div>
+            <div class="form-group">
+                <label for="content">Entry text</label>
+                <textarea class="form-control" id="content" name="content" placeholder="Please input contents"
+                    rows="3"></textarea>
+            </div>
+            <div class="form-group" style="display:flex;">
+                <input style="margin-left:auto;" type="submit" value="Post comment" id="postBtn" class="btn btn-primary">
+            </div>
+        </form>
+    </div>
+    {{>scripts}}
+    <script type="text/javascript">
+        $('#postBtn').click((e) => {
+                e.preventDefault();
+                //console.log({{isNotReplay}})
+                $.ajax({
+                    type: 'POST',
+                    data: {
+                        title:$('#title').val(),
+                        content: {{^isNotReplay}}'@'+'{{ownerName}}'+' '+ {{/isNotReplay}} $('#content').val(),
+                        id: window.localStorage.getItem('id'),
+                        {{^isNotReplay}}replayId:'{{replayId}}'{{/isNotReplay}}
+                    },
+                    success: (data) => {
+                        console.log(data)
+                        if (data.ret_code == 500) {
+                            alert(data.ret_msg)
+                        } else if (data.ret_code == 200) {
+                            window.location.replace('/')
+                        }
+                    }
+                })
+            })
+    </script>
+
+</body>
+
+</html>

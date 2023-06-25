@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" style="width:100%;height:100%;">
+
+<head>
+    {{>header}}
+</head>
+
+<body style="height:100%;width:100%;">
+    <header style="height:50px;">
+
+    </header>
+    <div class="container" style="height:auto;">
+        <h2>{{title}}</h2>
+        <hr />
+        <form method="post" role="form" style="margin-top:50px;">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" name="username"
+                    placeholder="Please input username" required />
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password"
+                    placeholder="Please input password" />
+            </div>
+            <div class="form-group" style="display:flex;">
+                <input style="margin-left:auto;" type="submit" value="Register" id="register" class="btn btn-primary">
+            </div>
+        </form>
+    </div>
+    {{>scripts}}
+    <script type="text/javascript">
+        $('#register').click((e)=>{
+            e.preventDefault();
+            $.ajax({
+                url:'/login/register',
+                type:'POST',
+                data:{
+                    username: $('#username').val(),
+                    password:$('#password').val(),
+                    
+                },
+                success:(data)=>{
+                    console.log(data)
+                    if(data.ret_code==500){
+                        alert(data.ret_msg)
+                    }else if(data.ret_code == 200){
+                        alert('Success')
+                        window.location.replace('/login')
+                    }
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>

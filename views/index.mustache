@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" style="width:100%;height:100%;">
+
+<head>
+    {{>header}}
+</head>
+
+<body style="width:100%;height:100%;">
+    <header style="height:50px;">
+
+    </header>
+    <div class="container" style="height:auto;">
+        <h1>{{title}}</h1>
+        <div style="display: flex;">
+            <a class="btn btn-primary" style=" margin-left: auto;" href="\insert">Write a comment</a>
+            &nbsp;<a class="btn btn-warning" href="\login\logout">Logout</a>
+        </div>
+        <hr />
+
+        {{#comments}}
+        <div class="card" style="margin-top:15px;">
+            <div class="card-header">
+                <h4>{{title}}</h4>
+            </div>
+            <div class="card-body">
+                {{content}}
+            </div>
+            <div class="card-footer">
+                Created at {{createdAt}} By <a href="\comments\{{ownerName}}">{{ownerName}}</a>
+                &nbsp;|&nbsp;<a href='\replay\id={{id}};authorName={{ownerName}}'>Click here to replay it</a>
+            </div>
+        </div>
+        {{/comments}}
+    </div>
+    {{>scripts}}
+</body>
+
+</html>
